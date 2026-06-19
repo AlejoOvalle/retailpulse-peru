@@ -963,7 +963,7 @@ with st.sidebar:
                 tr  = st.number_input(label_tr, 0, 500000, d["tr"], 1000, key=f"tr_{nombre}")
                 cr  = st.slider(label_cr, 0.1, 10.0, d["cr"], 0.1, key=f"cr_{nombre}",
                                 format="%.1f%%") / 100
-                aov = st.number_input(label_aov, 1000, 500000, d["aov"], 1000, key=f"aov_{nombre}")
+                aov = st.number_input(label_aov, 0, 500000, d["aov"], 1000, key=f"aov_{nombre}")
 
                 if nombre == "Marketplace":
                     # ── Selector de marketplace chileno ──
