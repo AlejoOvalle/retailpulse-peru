@@ -942,11 +942,12 @@ with st.sidebar:
     # Valores default por canal
     defaults = {
         # Valores calibrados para mercado peruano (PEN, CR benchmark CAPECE 2025)
-        "Orgánico/SEO":  dict(tr=12000, cr=1.8, aov=180, cpc=0),
-        "Paid Ads":      dict(tr=18000, cr=1.4, aov=220, cpc=1.2),
-        "Email/CRM":     dict(tr=6000,  cr=2.8, aov=260, cpc=0),
-        "Marketplace":   dict(tr=8000,  cr=3.5, aov=160, cpc=0),
-        "Directo/Otros": dict(tr=3000,  cr=1.6, aov=200, cpc=0),
+        # TODOS los valores numéricos son float para evitar StreamlitMixedNumericTypesError
+        "Orgánico/SEO":  dict(tr=12000, cr=1.8, aov=180.0, cpc=0.0),
+        "Paid Ads":      dict(tr=18000, cr=1.4, aov=220.0, cpc=1.2),
+        "Email/CRM":     dict(tr=6000,  cr=2.8, aov=260.0, cpc=0.0),
+        "Marketplace":   dict(tr=8000,  cr=3.5, aov=160.0, cpc=0.0),
+        "Directo/Otros": dict(tr=3000,  cr=1.6, aov=200.0, cpc=0.0),
     }
 
     label_tr  = "Visitas/mes"    if es_pyme else "Tráfico mensual"
@@ -963,7 +964,7 @@ with st.sidebar:
                 tr  = st.number_input(label_tr, 0, 500000, d["tr"], 1000, key=f"tr_{nombre}")
                 cr  = st.slider(label_cr, 0.1, 10.0, d["cr"], 0.1, key=f"cr_{nombre}",
                                 format="%.1f%%") / 100
-                aov = st.number_input(label_aov, 1000, 500000, max(1000, d["aov"]), 1000, key=f"aov_{nombre}")
+                aov = st.number_input(label_aov, 1.0, 50000.0, float(d["aov"]), 10.0, key=f"aov_{nombre}", format="%.0f")
 
                 if nombre == "Marketplace":
                     # ── Selector de marketplace chileno ──
@@ -993,7 +994,7 @@ with st.sidebar:
                         nombre_mp=mp_sel,
                     )
                 else:
-                    cpc = st.number_input(label_cpc, 0, 5000, d["cpc"], 10, key=f"cpc_{nombre}")
+                    cpc = st.number_input(label_cpc, 0.0, 500.0, float(d["cpc"]), 0.1, key=f"cpc_{nombre}", format="%.1f")
                     canales_activos[nombre] = True
                     canales_input[nombre]   = dict(tr=tr, cr=cr, aov=aov, cpc=cpc,
                                                    es_marketplace=False, comision_pct=0.0, nombre_mp=None)
@@ -1007,11 +1008,11 @@ with st.sidebar:
 
     costos_fijos = st.number_input(
         "Costos fijos mensuales (PEN)" if not es_pyme else "Gastos fijos del negocio (S/)",
-        0, 10_000_000, 12_000, 500)
+        0.0, 500_000.0, 12_000.0, 500.0)
 
     costo_logistica = st.number_input(
         "Costo logístico por pedido (PEN)" if not es_pyme else "Envío por pedido (S/)",
-        0, 500, 12, 1)
+        0.0, 500.0, 12.0, 1.0)
 
     tasa_devolucion = st.slider(
         "Tasa de devolución (%)" if not es_pyme else "% pedidos devueltos",
