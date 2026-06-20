@@ -968,8 +968,8 @@ with st.sidebar:
 
     label_tr  = "Visitas/mes"    if es_pyme else "Tráfico mensual"
     label_cr  = "% que compran"  if es_pyme else "CR (%)"
-    label_aov = "Precio promedio"if es_pyme else "AOV (CLP)"
-    label_cpc = "Costo por clic" if es_pyme else "CPC (CLP)"
+    label_aov = "Precio promedio"if es_pyme else "AOV (S)"
+    label_cpc = "Costo por clic" if es_pyme else "CPC (S)"
 
     for nombre in nombres_canales:
         d = defaults[nombre]
@@ -1512,10 +1512,10 @@ with tab_retencion:
     # Tabla de cohorte
     with st.expander("📋 Ver tabla de cohorte mes a mes"):
         df_cohorte = pd.DataFrame(cohorte_rows)
-        df_cohorte.columns = ["Mes", "Clientes Activos", "Ingresos Cohorte (CLP)", "LTV Acum. / Cliente (CLP)"]
+        df_cohorte.columns = ["Mes", "Clientes Activos", "Ingresos Cohorte (S)", "LTV Acum. / Cliente (S)"]
         df_cohorte["Clientes Activos"] = df_cohorte["Clientes Activos"].apply(lambda v: f"{v:,.0f}")
-        df_cohorte["Ingresos Cohorte (CLP)"] = df_cohorte["Ingresos Cohorte (CLP)"].apply(fmt_clp)
-        df_cohorte["LTV Acum. / Cliente (CLP)"] = df_cohorte["LTV Acum. / Cliente (CLP)"].apply(fmt_clp)
+        df_cohorte["Ingresos Cohorte (S)"] = df_cohorte["Ingresos Cohorte (S)"].apply(fmt_clp)
+        df_cohorte["LTV Acum. / Cliente (S)"] = df_cohorte["LTV Acum. / Cliente (S)"].apply(fmt_clp)
         st.dataframe(df_cohorte, use_container_width=True, hide_index=True)
 
     # Diagnóstico retención
