@@ -1070,14 +1070,7 @@ with st.sidebar:
         cyber_b_on = st.checkbox("B: Fricción logística provincias", value=True)
         cyber_c_on = st.checkbox("C: Inflación CAC (saturación subasta)", value=True)
 
-    st.markdown("""
-    <hr style="border:none;border-top:1px solid #1A2535;margin:1.2rem 0 0.8rem 0;"/>
-    <div style="font-size:0.62rem;color:#2D3748;text-align:center;line-height:1.6;">
-      RetailPulse Latam v2.0 · Chile<br>
-      <a href="https://www.aovalle.com" style="color:#38BDF8;text-decoration:none;">aovalle.com</a>
-    </div>
-
-    # ─────────────────────────────────────────────────────────────────────────────
+         # ─────────────────────────────────────────────────────────────────────────────
 # TÉRMINOS Y CONDICIONES
 # ─────────────────────────────────────────────────────────────────────────────
 
@@ -1117,6 +1110,12 @@ with col_tc_c:
 
         st.caption("© 2026 Alejandro Ovalle · aovalle.com · Todos los derechos reservados")
 
+    st.markdown("""
+    <hr style="border:none;border-top:1px solid #1A2535;margin:1.2rem 0 0.8rem 0;"/>
+    <div style="font-size:0.62rem;color:#2D3748;text-align:center;line-height:1.6;">
+      RetailPulse Latam v2.0 · Chile<br>
+      <a href="https://www.aovalle.com" style="color:#38BDF8;text-decoration:none;">aovalle.com</a>
+    </div>
     
     """, unsafe_allow_html=True)
 
