@@ -1076,10 +1076,8 @@ with st.sidebar:
       RetailPulse Latam v2.0 · Chile<br>
       <a href="https://www.aovalle.com" style="color:#38BDF8;text-decoration:none;">aovalle.com</a>
     </div>
-    """, unsafe_allow_html=True)
 
-    
-# ─────────────────────────────────────────────────────────────────────────────
+    # ─────────────────────────────────────────────────────────────────────────────
 # TÉRMINOS Y CONDICIONES
 # ─────────────────────────────────────────────────────────────────────────────
 
@@ -1119,7 +1117,8 @@ with col_tc_c:
 
         st.caption("© 2026 Alejandro Ovalle · aovalle.com · Todos los derechos reservados")
 
-
+    
+    """, unsafe_allow_html=True)
 
 # ─────────────────────────────────────────────────────────────────────────────
 # CÁLCULOS PRINCIPALES
