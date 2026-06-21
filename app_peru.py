@@ -1693,3 +1693,53 @@ st.markdown(f"""
   </div>
 </div>
 """, unsafe_allow_html=True)
+
+# ─────────────────────────────────────────────────────────────────────────────
+# TÉRMINOS Y CONDICIONES
+# ─────────────────────────────────────────────────────────────────────────────
+
+st.markdown("<div style='height:1rem;'></div>", unsafe_allow_html=True)
+
+col_tc_l, col_tc_c, col_tc_r = st.columns([1, 1, 1])
+with col_tc_c:
+    with st.popover("📄 Ver Términos y Condiciones", use_container_width=True):
+        st.markdown("""
+        <div style="font-size:0.7rem;color:#64748B;letter-spacing:0.1em;
+                    text-transform:uppercase;margin-bottom:0.5rem;">
+            Última actualización: Junio de 2026
+        </div>
+        """, unsafe_allow_html=True)
+
+        st.markdown("#### Términos y Condiciones de Uso — RetailPulse LATAM")
+
+        secciones = [
+            ("1. Objeto de la Aplicación y Licencia de Uso",
+             "RetailPulse LATAM es un simulador interactivo de Estado de Resultados (P&L) enfocado en comercio electrónico para el mercado latinoamericano. El Propietario otorga al Usuario una licencia de uso limitada, no exclusiva, revocable, personal y no transferible para utilizar La Aplicación como herramienta de análisis, diagnóstico y simulación estratégica según el plan de licenciamiento contratado."),
+
+            ("2. Privacidad de Datos y Política de No Almacenamiento",
+             "RetailPulse LATAM no almacena, guarda, recopila ni registra en ninguna base de datos centralizada o servidor externo los valores, cifras, márgenes ni datos financieros que El Usuario introduzca. Toda la información es procesada localmente y en tiempo real dentro de la sesión activa del navegador. Una vez que el Usuario cierra la pestaña o recarga La Aplicación, los datos introducidos se eliminan de forma permanente y automática de la memoria de la sesión."),
+
+            ("3. Exclusión de Responsabilidad Financiera y Comercial",
+             "RetailPulse LATAM es exclusivamente una herramienta de simulación, apoyo educativo y planificación estratégica. Los resultados, gráficos, proyecciones y cálculos generados son estimaciones matemáticas basadas en los datos suministrados por el propio Usuario. El uso de La Aplicación no constituye asesoría financiera, contable, legal, tributaria o comercial vinculante. El Propietario no será responsable por pérdidas financieras, lucro cesante, daño emergente o decisiones operativas erróneas derivadas del uso de la información visualizada."),
+
+            ("4. Propiedad Intelectual y Restricciones",
+             "Toda la propiedad intelectual asociada a RetailPulse LATAM —incluyendo código fuente (Python), arquitectura de software, algoritmos de simulación financiera, lógica de módulos, diseños e interfaces— es propiedad exclusiva de Alejandro Ovalle. Queda prohibido realizar ingeniería inversa, descompilar, extraer el código fuente, revender el acceso a terceros sin licencia corporativa, o remover los avisos de derecho de autor."),
+
+            ("5. Modificaciones y Actualizaciones de Datos",
+             "Las tarifas de pasarelas de pago, comisiones de marketplaces y multiplicadores de eventos incluidos corresponden a revisiones periódicas del mercado realizadas por El Propietario. El Propietario se reserva el derecho de actualizar o modificar la matriz de datos en cualquier momento para asegurar la vigencia de las simulaciones."),
+
+            ("6. Ley Aplicable y Jurisdicción",
+             "Estos Términos y Condiciones se rigen por las leyes de la República de Chile. Cualquier controversia será sometida a la jurisdicción de los Tribunales Ordinarios de Justicia de Santiago de Chile."),
+        ]
+
+        for titulo, cuerpo in secciones:
+            st.markdown(f"**{titulo}**")
+            st.markdown(f'<p style="font-size:0.85rem;color:#94A3B8;line-height:1.7;margin-bottom:1rem;">{cuerpo}</p>',
+                        unsafe_allow_html=True)
+
+        st.markdown("""
+        <div style="margin-top:1rem;padding-top:0.75rem;border-top:1px solid #1A2535;
+                    font-size:0.75rem;color:#475569;text-align:center;">
+            © 2026 Alejandro Ovalle · aovalle.com · Todos los derechos reservados
+        </div>
+        """, unsafe_allow_html=True)
