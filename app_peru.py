@@ -117,11 +117,11 @@ def pantalla_login():
                alt="aovalle.com logo" />
           <div style="font-size:2.2rem; font-weight:700; color:#F1F5F9;
                       letter-spacing:-0.02em; margin-bottom:0.2rem;">
-            RetailPulse Latam
+            RetailPulse Latam | Perú
           </div>
           <div style="font-size:0.7rem; color:#38BDF8; letter-spacing:0.15em;
                       text-transform:uppercase; margin-bottom:2.5rem;">
-            Simulador P&L · v2.0
+            Simulador P&L · Ecommerce · v2.0 Beta
           </div>
         </div>
         """, unsafe_allow_html=True)
@@ -195,12 +195,12 @@ def pantalla_login():
           <div style="font-size:2.2rem; font-weight:700; color:#F1F5F9;
                       letter-spacing:-0.02em; margin-bottom:0.2rem;
                       font-family:'Roboto',sans-serif;">
-            RetailPulse Latam
+            RetailPulse Latam | Perú
           </div>
           <div style="font-size:0.7rem; color:#38BDF8; letter-spacing:0.15em;
                       text-transform:uppercase; margin-bottom:2.5rem;
                       font-family:'Roboto',sans-serif;">
-            Simulador P&L · Perú · v2.0
+            Simulador P&L · Ecommerce · v2.0 Beta
           </div>
         </div>
         """, unsafe_allow_html=True)
@@ -929,10 +929,10 @@ with st.sidebar:
                style="height:56px; width:auto; margin-bottom:1.25rem; border-radius:10px;"
                alt="aovalle.com logo" />
       <div style="font-size:1.05rem;font-weight:700;color:#F1F5F9;letter-spacing:-0.01em;">
-        📊 RetailPulse Perú - AOvalle.com
+        📊 RetailPulse Latam | Perú
       </div>
       <div style="font-size:0.65rem;color:#38BDF8;letter-spacing:0.14em;text-transform:uppercase;margin-top:0.15rem;">
-        Simulador P&L · v2.0
+        Simulador P&L · Ecommerce · v2.0 Beta
       </div>
     </div>
     <hr style="border:none;border-top:1px solid #1A2535;margin:0.5rem 0 0.3rem 0;"/>
