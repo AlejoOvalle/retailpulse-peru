@@ -1705,7 +1705,7 @@ with col_tc_c:
     with st.popover("📄 Ver Términos y Condiciones"):
 
         st.caption("Última actualización: Junio de 2026")
-        st.markdown("#### Términos y Condiciones de Uso — RetailPulse LATAM")
+        st.markdown("#### Términos y Condiciones de Uso | RetailPulse LATAM")
 
         secciones = [
             ("1. Objeto de la Aplicación y Licencia de Uso",
