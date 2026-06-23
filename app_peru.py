@@ -543,16 +543,18 @@ MARKETPLACE_COMISIONES = {
 }
 
 def calcular_canal(trafico, cr, aov, cpc, margen_pct,
-                   es_marketplace=False, comision_pct=0.0, nombre_mp=None):
+                   es_marketplace=False, comision_pct=0.0, nombre_mp=None,
+                   inversion=0.0):
     """
-    P&L completo de un canal individual.
+    P&L completo de un canal individual — Mercado Peruano (PEN).
 
-    Para Marketplace:
-      - cpc se ignora (no hay pauta directa)
-      - comision_pct = % que cobra el marketplace sobre ingresos brutos
-      - gasto_ads    = comision_pagada (para mantener la estructura del P&L)
-      - cac          = comision_pagada / pedidos
-      - roas         = ingresos_brutos / comision_pagada
+    Lógica de costo por tipo de canal:
+    ──────────────────────────────────────────────────
+    • Paid Ads:      gasto = trafico × cpc   (costo variable, S/ por clic)
+    • Orgánico/SEO,
+      Email/CRM,
+      Directo/Otros: gasto = inversion       (costo fijo mensual en S/)
+    • Marketplace:   gasto = comision_pct × ingresos (% sobre venta)
     """
     pedidos      = trafico * cr
     ingresos     = pedidos * aov
@@ -562,21 +564,20 @@ def calcular_canal(trafico, cr, aov, cpc, margen_pct,
     if es_marketplace:
         comision_pagada = ingresos * comision_pct
         ingresos_netos  = ingresos - comision_pagada
-        gasto_ads       = comision_pagada          # alias para mantener estructura P&L
-        contribucion    = ingresos_netos * margen_pct - comision_pagada
+        gasto_ads       = comision_pagada
         contribucion    = margen_bruto - comision_pagada
         roas            = ingresos / comision_pagada if comision_pagada > 0 else 0
         cac             = comision_pagada / pedidos  if pedidos > 0 else 0
     else:
         comision_pagada = 0.0
         ingresos_netos  = ingresos
-        gasto_ads       = trafico * cpc
+        gasto_ads       = (trafico * cpc) if cpc > 0 else inversion
         contribucion    = margen_bruto - gasto_ads
         roas            = ingresos / gasto_ads if gasto_ads > 0 else 0
         cac             = gasto_ads / pedidos  if pedidos  > 0 else 0
 
     return dict(
-        trafico=trafico, cr=cr, aov=aov, cpc=cpc,
+        trafico=trafico, cr=cr, aov=aov, cpc=cpc, inversion=inversion,
         pedidos=pedidos, ingresos=ingresos, ingresos_netos=ingresos_netos,
         cogs=cogs, margen_bruto=margen_bruto,
         gasto_ads=gasto_ads, comision_pagada=comision_pagada,
@@ -1094,6 +1095,7 @@ canales_data = {
         es_marketplace=v.get("es_marketplace", False),
         comision_pct=v.get("comision_pct", 0.0),
         nombre_mp=v.get("nombre_mp"),
+        inversion=v.get("inversion", 0.0),
     )
     for nombre, v in canales_input.items()
 }
@@ -1450,14 +1452,23 @@ with tab_canales:
                 fila["Comisión %"]       = fmt_pct(canal.get("comision_pct", 0))
                 fila["Comisión Pagada"]  = fmt_clp(canal.get("comision_pagada", 0))
                 fila["Ing. Netos"]       = fmt_clp(canal.get("ingresos_netos", canal["ingresos"]))
-                fila["Gasto Ads"]        = "N/A"
+                fila["Costo Canal"]      = "N/A"
+                fila["Tipo Costo"]       = "Comisión %"
             else:
                 if hay_mp:
                     fila["Marketplace"]     = "—"
                     fila["Comisión %"]      = "—"
                     fila["Comisión Pagada"] = "—"
                     fila["Ing. Netos"]      = fmt_clp(canal["ingresos"])
-                fila["Gasto Ads"] = fmt_clp(canal["gasto_ads"])
+                if canal.get("cpc", 0) > 0:
+                    fila["Costo Canal"] = fmt_clp(canal["gasto_ads"])
+                    fila["Tipo Costo"]  = f"CPC S/{canal['cpc']:.1f}/clic"
+                elif canal.get("inversion", 0) > 0:
+                    fila["Costo Canal"] = fmt_clp(canal["gasto_ads"])
+                    fila["Tipo Costo"]  = "Inversión fija"
+                else:
+                    fila["Costo Canal"] = fmt_clp(0)
+                    fila["Tipo Costo"]  = "Sin inversión"
             fila["ROAS"]         = fmt_x(canal["roas"])
             fila["CAC"]          = fmt_clp(canal["cac"])
             fila["Contribución"] = fmt_clp(canal["contribucion"])
