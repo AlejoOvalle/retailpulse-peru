@@ -953,17 +953,18 @@ with st.sidebar:
     defaults = {
         # Valores calibrados para mercado peruano (PEN, CR benchmark CAPECE 2025)
         # TODOS los valores numéricos son float para evitar StreamlitMixedNumericTypesError
-        "Orgánico/SEO":  dict(tr=12000, cr=1.8, aov=180.0, cpc=0.0),
-        "Paid Ads":      dict(tr=18000, cr=1.4, aov=220.0, cpc=1.2),
-        "Email/CRM":     dict(tr=6000,  cr=2.8, aov=260.0, cpc=0.0),
-        "Marketplace":   dict(tr=8000,  cr=3.5, aov=160.0, cpc=0.0),
-        "Directo/Otros": dict(tr=3000,  cr=1.6, aov=200.0, cpc=0.0),
+        "Orgánico/SEO":  dict(tr=12000, cr=1.8, aov=180.0, cpc=0.0, inversion=1200.0),
+        "Paid Ads":      dict(tr=18000, cr=1.4, aov=220.0, cpc=1.2, inversion=0.0),
+        "Email/CRM":     dict(tr=6000,  cr=2.8, aov=260.0, cpc=0.0, inversion=300.0),
+        "Marketplace":   dict(tr=8000,  cr=3.5, aov=160.0, cpc=0.0, inversion=0.0),
+        "Directo/Otros": dict(tr=3000,  cr=1.6, aov=200.0, cpc=0.0, inversion=0.0),
     }
 
     label_tr  = "Visitas/mes"    if es_pyme else "Tráfico mensual"
     label_cr  = "% que compran"  if es_pyme else "CR (%)"
     label_aov = "Precio promedio"if es_pyme else "AOV (S)"
-    label_cpc = "Costo por clic" if es_pyme else "CPC (S)"
+    label_cpc       = "Costo por clic (S/)"             if es_pyme else "CPC (S/)"
+    label_inversion = "Inversión mensual en canal (S/)" if es_pyme else "Inversión mensual canal (S/)"
 
     for nombre in nombres_canales:
         d = defaults[nombre]
@@ -1004,10 +1005,33 @@ with st.sidebar:
                         nombre_mp=mp_sel,
                     )
                 else:
-                    cpc = st.number_input(label_cpc, 0.0, 500.0, float(d["cpc"]), 0.1, key=f"cpc_{nombre}", format="%.1f")
+                    if nombre == "Paid Ads":
+                        cpc = st.number_input(label_cpc, 0.0, 500.0, float(d["cpc"]), 0.1,
+                                              key=f"cpc_{nombre}", format="%.1f")
+                        inversion = 0.0
+                        st.markdown(
+                            '<div style="font-size:0.68rem;color:#64748B;margin:-0.3rem 0 0.4rem 0;">'
+                            'Costo variable · Se calcula como Tráfico × CPC</div>',
+                            unsafe_allow_html=True
+                        )
+                    else:
+                        inversion = st.number_input(
+                            label_inversion, 0.0, 500_000.0,
+                            float(d.get("inversion", 0.0)), 100.0,
+                            key=f"inv_{nombre}", format="%.0f"
+                        )
+                        cpc = 0.0
+                        st.markdown(
+                            '<div style="font-size:0.68rem;color:#64748B;margin:-0.3rem 0 0.4rem 0;">'
+                            'Costo fijo mensual · Agencia SEO, plataforma email, etc.</div>',
+                            unsafe_allow_html=True
+                        )
                     canales_activos[nombre] = True
-                    canales_input[nombre]   = dict(tr=tr, cr=cr, aov=aov, cpc=cpc,
-                                                   es_marketplace=False, comision_pct=0.0, nombre_mp=None)
+                    canales_input[nombre]   = dict(
+                        tr=tr, cr=cr, aov=aov, cpc=cpc,
+                        inversion=inversion,
+                        es_marketplace=False, comision_pct=0.0, nombre_mp=None
+                    )
 
     # ── COSTOS ──
     st.markdown("### 🏗️ Estructura de Costos")
