@@ -963,7 +963,8 @@ with st.sidebar:
     label_tr  = "Visitas/mes"    if es_pyme else "Tráfico mensual"
     label_cr  = "% que compran"  if es_pyme else "CR (%)"
     label_aov = "Precio promedio"if es_pyme else "AOV (S)"
-    label_cpc = "Costo por clic" if es_pyme else "CPC (S)"
+    label_cpc       = "Costo por clic (S/)"             if es_pyme else "CPC (S/)"
+label_inversion = "Inversión mensual en canal (S/)" if es_pyme else "Inversión mensual canal (S/)"
 
     for nombre in nombres_canales:
         d = defaults[nombre]
