@@ -1708,7 +1708,10 @@ st.markdown(f"""
     Solicitar Diagnóstico → aovalle.com
   </a>
   <div style="font-size:0.62rem;color:#2D3748;margin-top:1.25rem;">
-    RetailPulse Latam v2.0 · Mercado Peruano · linkedin.com/in/ovallealejandro
+    RetailPulse Latam v2.0 · Mercado Peruano · linkedin.com/in/ovallealejandro<br>
+Copyright &COPY; <script>
+                  document.write(new Date().getFullYear());
+                </script> | <a>AOvalle.com</a> | Todos los Derechos Reservados
   </div>
 </div>
 """, unsafe_allow_html=True)
