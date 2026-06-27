@@ -1582,7 +1582,37 @@ with tab_cyber:
         </div>
         """, unsafe_allow_html=True)
     else:
-        st.markdown("#### Impacto Cyber sobre tu P&L Mensual")
+        ev_activo  = EVENTOS_CYBER_PE.get(evento_cyber_sel, {})
+        pas_activo = PASARELAS_PE.get(pasarela_sel, {})
+        st.markdown(f"""
+        <div style="background:#0D1420;border:1px solid #1A2535;border-radius:8px;
+                    padding:0.75rem 1.25rem;margin-bottom:1rem;
+                    display:flex;gap:2rem;align-items:center;flex-wrap:wrap;">
+          <div>
+            <span style="font-size:0.62rem;color:#64748B;text-transform:uppercase;
+                         letter-spacing:0.1em;">Evento</span><br>
+            <span style="font-size:0.9rem;font-weight:600;color:#38BDF8;">
+              {evento_cyber_sel}</span>
+            <span style="font-size:0.75rem;color:#64748B;margin-left:0.5rem;">
+              · Tráfico ×{ev_activo.get('multiplicador',3.5)} · {ev_activo.get('mes','—')}</span>
+          </div>
+          <div>
+            <span style="font-size:0.62rem;color:#64748B;text-transform:uppercase;
+                         letter-spacing:0.1em;">Pasarela</span><br>
+            <span style="font-size:0.9rem;font-weight:600;color:#FBBF24;">
+              {pasarela_sel}</span>
+            <span style="font-size:0.75rem;color:#64748B;margin-left:0.5rem;">
+              · {pas_activo.get('label','—')}</span>
+          </div>
+          <div>
+            <span style="font-size:0.62rem;color:#64748B;text-transform:uppercase;
+                         letter-spacing:0.1em;">Inflación CPC</span><br>
+            <span style="font-size:0.9rem;font-weight:600;color:#F87171;">
+              +{ev_activo.get('inflacion_cpc',0.45)*100:.0f}%</span>
+          </div>
+        </div>
+        """, unsafe_allow_html=True)
+        st.markdown("#### Impacto sobre tu P&L Mensual")
 
         ca1, ca2, ca3, ca4 = st.columns(4)
         with ca1:
@@ -1707,11 +1737,8 @@ st.markdown(f"""
             letter-spacing:0.06em;text-transform:uppercase;">
     Solicitar Diagnóstico → aovalle.com
   </a>
-  <div style="font-size:0.62rem;color:#ffffff;margin-top:1.25rem;">
-    RetailPulse Latam v2.0 · Mercado Peruano · linkedin.com/in/ovallealejandro<br>
-Copyright &COPY; <script>
-                  document.write(new Date().getFullYear());
-                </script> | <a>AOvalle.com</a> | Todos los Derechos Reservados
+  <div style="font-size:0.62rem;color:#2D3748;margin-top:1.25rem;">
+    RetailPulse Latam v2.0 · Mercado Peruano · linkedin.com/in/ovallealejandro
   </div>
 </div>
 """, unsafe_allow_html=True)
